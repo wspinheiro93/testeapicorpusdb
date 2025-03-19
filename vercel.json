@@ -1,10 +1,23 @@
 {
+  "version": 2,
   "functions": {
     "api/server.js": {
       "memory": 1024,
       "includeFiles": "db.json"
     }
   },
+  "builds": [
+    {
+      "src": "api/server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "env": {
+    "AUTH_USER": "admin",
+    "AUTH_PASS": "senha123"
+  },
+  "installCommand": "pnpm install --no-frozen-lockfile",
+  "startCommand": "node api/server.js",
   "rewrites": [
     {
       "source": "/(.*)",
