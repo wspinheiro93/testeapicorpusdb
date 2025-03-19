@@ -1,31 +1,49 @@
 // See https://github.com/typicode/json-server#module
-const jsonServer = require('json-server')
+const jsonServer = require("json-server");
+const auth = require("basic-auth");
+require("dotenv").config();
 
-const server = jsonServer.create()
+const server = jsonServer.create();
 
-// Uncomment to allow write operations
-// const fs = require('fs')
-// const path = require('path')
-// const filePath = path.join('db.json')
-// const data = fs.readFileSync(filePath, "utf-8");
-// const db = JSON.parse(data);
-// const router = jsonServer.router(db)
+// Middleware de autenticação
+function authenticate(req, res, next) {
+  const user = auth(req);
 
-// Comment out to allow write operations
-const router = jsonServer.router('db.json')
+  if (
+    !user ||
+    user.name !== process.env.AUTH_USER ||
+    user.pass !== process.env.AUTH_PASS
+  ) {
+    res.set("WWW-Authenticate", 'Basic realm="Access to the API"');
+    return res.status(401).json({ message: "Authentication required" });
+  }
 
-const middlewares = jsonServer.defaults()
+  next();
+}
 
-server.use(middlewares)
-// Add this before server.use(router)
-server.use(jsonServer.rewriter({
-    '/api/*': '/$1',
-    '/blog/:resource/:id/show': '/:resource/:id'
-}))
-server.use(router)
+// Middlewares padrão
+const middlewares = jsonServer.defaults();
+server.use(middlewares);
+
+// Middleware de autenticação antes das rotas
+server.use(authenticate);
+
+// Reescrita de rotas
+server.use(
+  jsonServer.rewriter({
+    "/api/*": "/$1",
+    "/blog/:resource/:id/show": "/:resource/:id",
+  })
+);
+
+// Router para o arquivo JSON
+const router = jsonServer.router("db.json");
+server.use(router);
+
+// Inicialização do servidor
 server.listen(3000, () => {
-    console.log('JSON Server is running')
-})
+  console.log("JSON Server is running");
+});
 
-// Export the Server API
-module.exports = server
+// Export do servidor
+module.exports = server;
