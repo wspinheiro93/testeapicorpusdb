@@ -1,9 +1,57 @@
 {
-  "posts": [
-    { "id": 1, "title": "json-server", "author": "typicode" }
-  ],
-  "comments": [
-    { "id": 1, "body": "some comment", "postId": 1 }
-  ],
-  "profile": { "name": "typicode" }
+    "setores": [
+        {
+            "id": 1,
+            "codigoSetor": "CT2GO0001",
+            "subprefeitura": "Cidade Tiradentes",
+            "frequencia": "Mensal",
+            "horarioInicial": "13:40",
+            "horarioFinal": "22:00",
+            "dias": [
+                "2024-12-02",
+                "2025-01-02",
+                "2025-02-01",
+                "2025-03-01",
+                "2025-04-01",
+                "2025-05-02",
+                "2025-06-02",
+                "2025-07-01",
+                "2025-08-01",
+                "2025-09-01",
+                "2025-10-01",
+                "2025-11-01",
+                "2025-12-01"
+            ],
+            "servico": "Cata Bagulho",
+            "empresa": "Corpus Saneamento e Obras",
+            "logradouros": [
+                {
+                    "logradouro": "Av Dr Guilherme de Abreu Sodre",
+                    "latitude": -23.564038,
+                    "longitude": -46.408568,
+                    "cep": "00000-000",
+                    "trechos": [
+                        {
+                            "id": "t1",
+                            "enderecoInicial": "R Inacio Monteiro",
+                            "enderecoFinal": "R Sem Denominacao",
+                            "coordenadas": [
+                                {
+                                    "latitude": -23.564038,
+                                    "longitude": -46.408568
+                                },
+                                {
+                                    "latitude": -23.565655,
+                                    "longitude": -46.409098
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "detalheArquivo": {
+        "qtdeSetores": 1
+    }
 }
